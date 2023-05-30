@@ -8,9 +8,15 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/status', (req, res) => {
+app.get('/smoke', (req, res) => {
     res.send({
-        message: 'hello world!'
+        message: 'tab-tracker server is running'
+    })
+})
+
+app.post('/register', (req, res) => {
+    res.send({
+        message: `Email registered: ${req.body.email}. Have fun!`
     })
 })
 
