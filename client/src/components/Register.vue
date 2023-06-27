@@ -17,6 +17,8 @@
       v-model="confirmPassword"
       placeholder="Confirm Password">
     <br>
+    <div class="error" v-html="error"></div>
+    <br>
     <button
       @click="register">Register</button>
 
@@ -30,21 +32,27 @@ export default {
     return {
       email: '', 
       password: '',
-      confirmPassword: ''
+      confirmPassword: '', 
+      error: null
     }
   }, 
   methods: {
     async register () {
-      const response = await AuthenticationService.register({
-        email: this.email,
-        password: this.password
-      })
-      console.log(response.data)
+      try {
+        await AuthenticationService.register({
+          email: this.email,
+          password: this.password
+        })
+      } catch (error: any) {
+        this.error = error.response.data.error
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-
+  .error {
+    color: red;
+  }
 </style>
